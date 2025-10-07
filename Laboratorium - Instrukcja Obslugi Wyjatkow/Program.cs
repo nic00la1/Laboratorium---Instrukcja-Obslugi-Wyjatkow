@@ -1,148 +1,146 @@
-﻿try
-{
-    int a = 10;
-    int b = 0;
-    int c = a / b; // Tutaj wystąpi DivideByZeroException
-}
-catch (DivideByZeroException ex)
-{
-    Console.WriteLine("Nie można dzielić przez zero! - Cholero!");
-}
+﻿using System;
+using System.IO;
 
-// Throw - Służy do ręcznego zgłoszenia wyjątku, np. kiedy chcesz wymusić
-// zakończenie działania funkcji w nieprawidłowej sytuacji
-
-int x = 10;
-
-if (x < 0)
+class Program
 {
-    throw new ArgumentException("Liczba nie może być ujemna");
-}
-
-// Blok finally wykona się zawsze, niezależnie od tego, czy wystąpił wyjątek,
-// czy nie. Używany np. do zamykania plików, połączeń, zwalniania zasobów.
-FileStream file = null;
-try
-{
-    file = new FileStream("dane.txt", FileMode.Open);
-    // operacje na pliku
-}
-catch (FileNotFoundException ex)
-{
-    Console.WriteLine("Plik nie istnieje! Tworzę nowy...");
-    file = new FileStream("dane.txt", FileMode.Create);
-}
-finally
-{
-    if (file != null)
-        file.Close();
-}
-
-// try-catch-finally - Połączenie wszystkich trzech elementów 
-// obsługa błędów + sprzątanie zasobów
-try
-{
-    int[] tab = { 1, 2, 3 };
-    Console.WriteLine(tab[5]); // błąd
-}
-catch (IndexOutOfRangeException ex)
-{
-    Console.WriteLine($"Błąd: {ex.Message}");
-}
-finally
-{
-    Console.WriteLine("Zawsze się wykona - nawet po błędzie");
-}
-
-
-// ============= ZADANIA PRAKTYCZNE ================
-// Zadanie 1 - Dzielenie z obsługą błędów
-// Napisz program, który: 
-// Wczytuje dwie liczby od użytkownika,
-// dzieli je i wyświetla wynik,
-// jeśli druga liczba to 0, przechwytuje wyjątek i informuje użytkownika,
-// że nie można dzielić przez zero.
-try
-{
-    // Wczytanie dwóch liczb od użytkownika
-    Console.Write("Podaj pierwszą liczbę: ");
-    double a = double.Parse(Console.ReadLine());
-
-    Console.Write("Podaj drugą liczbę: ");
-    double b = double.Parse(Console.ReadLine());
-
-    // Próba wykonania dzielenia
-    double wynik = a / b;
-    Console.WriteLine($"Wynik dzielenia: {wynik}");
-}
-catch (DivideByZeroException)
-{
-    Console.WriteLine("Błąd: Nie można dzielić przez zero!");
-}
-catch (FormatException)
-{
-    Console.WriteLine("Błąd: Wprowadź poprawne liczby!");
-}
-
-// Zadanie 2 - Własny wyjątek
-// Napisz funkcję ObliczPierwiastek(double x), która:
-// * jeśli x < 0, rzuca wyjątek ArgumentException,
-// * w przeciwnym razie zwraca pierwiastek kawadratowy.
-static double ObliczPierwiastek(double x)
-{
-    if (x < 0)
+    static void Main()
     {
-        throw new ArgumentException("Liczba nie może być ujemna!");
+        Console.WriteLine("=== ZADANIE 1 ===");
+        Zadanie1_Dzielenie();
+
+        Console.WriteLine("\n=== ZADANIE 2 ===");
+        Zadanie2_Pierwiastek();
+
+        Console.WriteLine("\n=== ZADANIE 3 ===");
+        OtworzPlik();
+
+        Console.WriteLine("\n=== ZADANIE 4 ===");
+        StartApp();
     }
 
-    return Math.Sqrt(x);
-}
-
-// Przykład użycia:
-try
-{
-    Console.Write("Podaj liczbę: ");
-    double liczba = double.Parse(Console.ReadLine());
-
-    double wynik = ObliczPierwiastek(liczba);
-    Console.WriteLine($"Pierwiastek kwadratowy z {liczba} = {wynik}");
-}
-catch (ArgumentException ex)
-{
-    Console.WriteLine($"Błąd: {ex.Message}");
-}
-catch (FormatException)
-{
-    Console.WriteLine("Błąd: Wprowadź poprawną liczbę!");
-}
-
-// Zadanie 3 - Otwieranie pliku
-// Spróbuj otworzyć plik dane.txt
-// * jeśli plik nie istnieje - przechwyć błąd (FileNotFoundException) i wyświetl
-// komunikat
-// * W finally dodaj Console.Writeline("Zamykam zasoby...");
-static void OtworzPlik()
-{
-    FileStream file = null;
-
-    try
+    // ===== ZADANIE 1 =====
+    static void Zadanie1_Dzielenie()
     {
-        file = new FileStream("dane.txt", FileMode.Open);
-        Console.WriteLine("Plik został otwarty pomyślnie!");
-    }
-    catch (FileNotFoundException)
-    {
-        Console.WriteLine("Błąd: Plik 'dane.txt' nie istnieje!");
-    }
-    finally
-    {
-        if (file != null)
-            file.Close();
+        try
+        {
+            Console.Write("Podaj pierwszą liczbę: ");
+            double a = double.Parse(Console.ReadLine());
 
-        Console.WriteLine("Zamykam zasoby...");
+            Console.Write("Podaj drugą liczbę: ");
+            double b = double.Parse(Console.ReadLine());
+
+            double wynik = a / b;
+            Console.WriteLine($"Wynik dzielenia: {wynik}");
+        }
+        catch (DivideByZeroException)
+        {
+            Console.WriteLine("Błąd: Nie można dzielić przez zero!");
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Błąd: Wprowadź poprawne liczby!");
+        }
+    }
+
+    // ===== ZADANIE 2 =====
+    static void Zadanie2_Pierwiastek()
+    {
+        try
+        {
+            Console.Write("Podaj liczbę: ");
+            double liczba = double.Parse(Console.ReadLine());
+
+            double wynik = ObliczPierwiastek(liczba);
+            Console.WriteLine($"Pierwiastek kwadratowy z {liczba} = {wynik}");
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine($"Błąd: {ex.Message}");
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Błąd: Wprowadź poprawną liczbę!");
+        }
+    }
+
+    static double ObliczPierwiastek(double x)
+    {
+        if (x < 0)
+            throw new ArgumentException("Liczba nie może być ujemna!");
+        return Math.Sqrt(x);
+    }
+
+    // ===== ZADANIE 3 =====
+    static void OtworzPlik()
+    {
+        FileStream file = null;
+
+        try
+        {
+            file = new FileStream("dane.txt", FileMode.Open);
+            Console.WriteLine("Plik został otwarty pomyślnie!");
+        }
+        catch (FileNotFoundException)
+        {
+            Console.WriteLine("Błąd: Plik 'dane.txt' nie istnieje!");
+        }
+        finally
+        {
+            if (file != null)
+                file.Close();
+
+            Console.WriteLine("Zamykam zasoby...");
+        }
+    }
+
+    // ===== ZADANIE 4 =====
+    static void StartApp()
+    {
+        try
+        {
+            Console.WriteLine("Uruchamiam aplikację...");
+
+            Random rand = new Random();
+            int los = rand.Next(0, 2); // 0 lub 1
+
+            if (los == 0)
+                throw new InvalidOperationException("Wystąpił nieoczekiwany błąd podczas działania aplikacji.");
+
+            Console.WriteLine("Aplikacja działa poprawnie!");
+        }
+        catch (InvalidOperationException ex)
+        {
+            Console.WriteLine($"Błąd: {ex.Message}");
+        }
+        finally
+        {
+            Console.WriteLine("Zamykanie aplikacji...");
+        }
+
+        // ===== ZADANIE 5 ======
+        static void Zadanie5_ZagniezdzoneTryCatch()
+        {
+            try
+            {
+                Console.Write("Podaj liczbę: ");
+                int liczba = int.Parse(Console.ReadLine());
+                Console.WriteLine($"Wpisałaś liczbę: {liczba}");
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Błąd: Niepoprawny format liczby. Spróbuj ponownie.");
+
+                try
+                {
+                    Console.Write("Podaj liczbę ponownie: ");
+                    int liczba = int.Parse(Console.ReadLine());
+                    Console.WriteLine($"Teraz wpisałaś liczbę: {liczba}");
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Błąd ponownie: wprowadzono niepoprawną liczbę. Koniec programu.");
+                }
+            }
+        }
     }
 }
-
-
-
-
