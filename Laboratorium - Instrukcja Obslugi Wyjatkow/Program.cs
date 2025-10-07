@@ -18,6 +18,7 @@ class Program
         StartApp();
     }
 
+
     // ===== ZADANIE 1 =====
     static void Zadanie1_Dzielenie()
     {
