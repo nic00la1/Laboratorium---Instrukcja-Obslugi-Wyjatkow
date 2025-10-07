@@ -54,3 +54,32 @@ finally
     Console.WriteLine("Zawsze się wykona - nawet po błędzie");
 }
 
+
+// ============= ZADANIA PRAKTYCZNE ================
+// Zadanie 1 - Dzielenie z obsługą błędów
+// Napisz program, który: 
+// Wczytuje dwie liczby od użytkownika,
+// dzieli je i wyświetla wynik,
+// jeśli druga liczba to 0, przechwytuje wyjątek i informuje użytkownika,
+// że nie można dzielić przez zero.
+try
+{
+    // Wczytanie dwóch liczb od użytkownika
+    Console.Write("Podaj pierwszą liczbę: ");
+    double a = double.Parse(Console.ReadLine());
+
+    Console.Write("Podaj drugą liczbę: ");
+    double b = double.Parse(Console.ReadLine());
+
+    // Próba wykonania dzielenia
+    double wynik = a / b;
+    Console.WriteLine($"Wynik dzielenia: {wynik}");
+}
+catch (DivideByZeroException)
+{
+    Console.WriteLine("Błąd: Nie można dzielić przez zero!");
+}
+catch (FormatException)
+{
+    Console.WriteLine("Błąd: Wprowadź poprawne liczby!");
+}
