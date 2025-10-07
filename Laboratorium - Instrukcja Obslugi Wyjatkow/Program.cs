@@ -116,5 +116,33 @@ catch (FormatException)
     Console.WriteLine("Błąd: Wprowadź poprawną liczbę!");
 }
 
+// Zadanie 3 - Otwieranie pliku
+// Spróbuj otworzyć plik dane.txt
+// * jeśli plik nie istnieje - przechwyć błąd (FileNotFoundException) i wyświetl
+// komunikat
+// * W finally dodaj Console.Writeline("Zamykam zasoby...");
+static void OtworzPlik()
+{
+    FileStream file = null;
+
+    try
+    {
+        file = new FileStream("dane.txt", FileMode.Open);
+        Console.WriteLine("Plik został otwarty pomyślnie!");
+    }
+    catch (FileNotFoundException)
+    {
+        Console.WriteLine("Błąd: Plik 'dane.txt' nie istnieje!");
+    }
+    finally
+    {
+        if (file != null)
+            file.Close();
+
+        Console.WriteLine("Zamykam zasoby...");
+    }
+}
+
+
 
 
