@@ -27,8 +27,13 @@ try
     file = new FileStream("dane.txt", FileMode.Open);
     // operacje na pliku
 }
+catch (FileNotFoundException ex)
+{
+    Console.WriteLine("Plik nie istnieje! Tworzę nowy...");
+    file = new FileStream("dane.txt", FileMode.Create);
+}
 finally
 {
     if (file != null)
-        file.Close(); // zawsze się wykona
+        file.Close();
 }
