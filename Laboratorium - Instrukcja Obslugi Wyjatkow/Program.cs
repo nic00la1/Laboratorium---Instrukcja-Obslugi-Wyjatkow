@@ -37,3 +37,20 @@ finally
     if (file != null)
         file.Close();
 }
+
+// try-catch-finally - Połączenie wszystkich trzech elementów 
+// obsługa błędów + sprzątanie zasobów
+try
+{
+    int[] tab = { 1, 2, 3 };
+    Console.WriteLine(tab[5]); // błąd
+}
+catch (IndexOutOfRangeException ex)
+{
+    Console.WriteLine($"Błąd: {ex.Message}");
+}
+finally
+{
+    Console.WriteLine("Zawsze się wykona - nawet po błędzie");
+}
+
