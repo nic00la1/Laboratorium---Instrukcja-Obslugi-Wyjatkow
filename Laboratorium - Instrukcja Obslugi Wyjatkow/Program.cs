@@ -18,3 +18,17 @@ if (x < 0)
 {
     throw new ArgumentException("Liczba nie może być ujemna");
 }
+
+// Blok finally wykona się zawsze, niezależnie od tego, czy wystąpił wyjątek,
+// czy nie. Używany np. do zamykania plików, połączeń, zwalniania zasobów.
+FileStream file = null;
+try
+{
+    file = new FileStream("dane.txt", FileMode.Open);
+    // operacje na pliku
+}
+finally
+{
+    if (file != null)
+        file.Close(); // zawsze się wykona
+}
