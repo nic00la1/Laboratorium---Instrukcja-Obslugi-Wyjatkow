@@ -83,3 +83,38 @@ catch (FormatException)
 {
     Console.WriteLine("Błąd: Wprowadź poprawne liczby!");
 }
+
+// Zadanie 2 - Własny wyjątek
+// Napisz funkcję ObliczPierwiastek(double x), która:
+// * jeśli x < 0, rzuca wyjątek ArgumentException,
+// * w przeciwnym razie zwraca pierwiastek kawadratowy.
+static double ObliczPierwiastek(double x)
+{
+    if (x < 0)
+    {
+        throw new ArgumentException("Liczba nie może być ujemna!");
+    }
+
+    return Math.Sqrt(x);
+}
+
+// Przykład użycia:
+try
+{
+    Console.Write("Podaj liczbę: ");
+    double liczba = double.Parse(Console.ReadLine());
+
+    double wynik = ObliczPierwiastek(liczba);
+    Console.WriteLine($"Pierwiastek kwadratowy z {liczba} = {wynik}");
+}
+catch (ArgumentException ex)
+{
+    Console.WriteLine($"Błąd: {ex.Message}");
+}
+catch (FormatException)
+{
+    Console.WriteLine("Błąd: Wprowadź poprawną liczbę!");
+}
+
+
+
